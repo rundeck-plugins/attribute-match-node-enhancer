@@ -8,7 +8,9 @@ plugins{
     id 'com.gradle.build-scan' version '1.13'
 }
 apply plugin: 'idea'
-
+ext.pluginClassNames = 'org.rundeck.plugins.nodes.icon.IconNodeEnhancer,org.rundeck.plugins.nodes.attributes.AttributeNodeEnhancer'
+ext.pluginName = 'Icon Nodes Enhancer'
+ext.pluginDescription = 'Adds icons to nodes based on attribute values'
 scmVersion {
     tag {
     	//defines release tags like "v1.2.3"
@@ -23,9 +25,28 @@ allprojects {
     apply from: "${rootDir}/gradle/java.gradle"
 }
 
+
+jar {
+    manifest {
+        attributes 'Rundeck-Plugin-Version': '2.0',
+                   'Rundeck-Plugin-Archive': 'true',
+                   'Rundeck-Plugin-File-Version': version,
+                   'Rundeck-Plugin-Author': 'Greg Schueler',
+                   'Rundeck-Plugin-URL': 'http://rundeck.com',
+                   'Rundeck-Plugin-Date': new Date().format("yyyy-MM-dd'T'HH:mm:ssX"),
+                   'Rundeck-Plugin-Classnames': pluginClassNames,
+                   'Rundeck-Plugin-Name': pluginName,
+                   'Rundeck-Plugin-Description': pluginDescription,
+                   'Rundeck-Plugin-Rundeck-Compatibility-Version': '3.0.14+'
+
+
+    }
+}
 dependencies {
     // Use the latest Groovy version for building this library
     // compile "com.squareup.okhttp3:okhttp:3.6.0"
+    compile 'org.rundeck:rundeck-core:3.0.14-20190221'
+
 
     // Use the awesome Spock testing and specification framework
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
