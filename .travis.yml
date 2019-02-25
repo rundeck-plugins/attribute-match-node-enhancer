@@ -12,11 +12,11 @@ deploy:
   api_key:
     secure: "TODO: run `travis setup releases` to setup deployment"
   file:
-    - build/libs/myproject*.jar
+    - build/libs/rundeck-node-icon-plugin*.jar
     # list file globs here for deployment
     
   on:
-    repo: myorg/myproject
+    repo: gschueler/rundeck-node-icon-plugin
     tags: true
   file_glob: true
   skip_cleanup: true
