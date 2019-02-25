@@ -140,7 +140,7 @@ public class AttributeNodeEnhancer
             return Objects::isNull;
         } else if ("=~".equals(op)) {
             Pattern p = Pattern.compile(val);
-            return (s) -> p.matcher(s).matches();
+            return (s) -> s != null && p.matcher(s).matches();
         } else if ("!~".equals(op)) {
             return makePredicate("=~", val).negate();
         } else {
