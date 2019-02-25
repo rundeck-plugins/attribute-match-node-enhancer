@@ -5,16 +5,13 @@ before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 deploy:
   provider: releases
   api_key:
-    secure: "TODO: run `travis setup releases` to setup deployment"
-  file:
-    - build/libs/rundeck-node-icon-plugin*.jar
-    # list file globs here for deployment
-    
+    secure: il43ufsbeGeyZDya0xQxHnmWwSHOzNWn/+2R56DvV0f3BaUaOS771dIgCjeVeutNl7sLi+WW5mG6YzumuJV1fQurJ+xIJmi/CZzLoUSWjvs352PccWK6cE+fEb1vU1Bw2wyMIhSbTUva0OqK9kwTFX9o+PcNRnQe4PWLFqC79bQcb5lgkSRu1FR8qp5gL3IZ6GGo5BjKKw9xipX0mKmLvgh1ND3bCtZOnRevuLgJavjLSRot4IDiKW9GLxajlQVSlIhU3UY3yHK69wVpQSxBx0i8riGE3YFIqqeid0HGqJjsBWb6yCxTa3MdWoBqxzfs/dBIVdCuqQKrd/b1sm7omlFO7DsKT9R0NpMCSOGbOJosOLltImJknuqxKhat36EQVrJaL2gYfZXJs5351D1BiwU8BtY3iflqypTzmQUdVlaLECAjTZKMgOR/10dN5vLHe7kZiWdvCsUf7x+tIkfzZuf6uTLrsU2s3b80AXC4aGem/Mz9UCfVR7Q+1KZWw5yNi2SE3GROI0exIgX4NhtuMRGFGKcDargo+hY/CJhbBF/SzZ5+j8KPB7gO11UQOhAWRsk0cFDkU/q8S8CtIuqWjp4Zvo1chKmuA30+ECUIQzatr1diFg9aVnUZfg8fPTvwHbfI2SLJQ9YoeLoqVKRGH4ISNXrb9U1DESnAIBKNfeA=
+  file: build/libs/rundeck-node-icon-plugin*.jar
   on:
     repo: gschueler/rundeck-node-icon-plugin
     tags: true
