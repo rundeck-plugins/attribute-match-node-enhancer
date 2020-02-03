@@ -109,8 +109,9 @@ public class AttributeNodeEnhancer
     }
 
     private boolean matchesAll(final Map<String, String> attributes) {
+        boolean regexMatch = true;
         Map<String, Predicate<String>> comparisons = new HashMap<>();
-        for (final String s : match.split("\r\n")) {
+        for (final String s : match.split("\r?\n")) {
             Matcher matcher = ComparisonPattern.matcher(s);
             if (matcher.matches()) {
                 String key = matcher.group("key");
@@ -120,8 +121,12 @@ public class AttributeNodeEnhancer
                 comparisons.compute(key, (s1, stringPredicate) ->
                         stringPredicate != null ? stringPredicate.and(newOp) : newOp
                 );
-
+            }else{
+                regexMatch = false;
             }
+        }
+        if(!regexMatch){
+            return false;
         }
         for (String s : comparisons.keySet()) {
             if (!comparisons.get(s).test(attributes.get(s))) {
