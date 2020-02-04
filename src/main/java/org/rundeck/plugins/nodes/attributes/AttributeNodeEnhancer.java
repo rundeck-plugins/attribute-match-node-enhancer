@@ -1,14 +1,9 @@
 package org.rundeck.plugins.nodes.attributes;
 
-
-import com.dtolabs.rundeck.core.common.INodeEntry;
 import com.dtolabs.rundeck.core.plugins.Plugin;
-import com.dtolabs.rundeck.core.plugins.configuration.DynamicProperties;
-import com.dtolabs.rundeck.core.plugins.configuration.StringRenderingConstants;
 import com.dtolabs.rundeck.plugins.descriptions.*;
 import com.dtolabs.rundeck.plugins.nodes.IModifiableNodeEntry;
 import com.dtolabs.rundeck.plugins.nodes.NodeEnhancerPlugin;
-import org.rundeck.app.spi.Services;
 
 import java.io.IOException;
 import java.io.StringReader;
