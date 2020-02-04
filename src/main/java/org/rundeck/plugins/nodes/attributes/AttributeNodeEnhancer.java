@@ -1,14 +1,9 @@
 package org.rundeck.plugins.nodes.attributes;
 
-
-import com.dtolabs.rundeck.core.common.INodeEntry;
 import com.dtolabs.rundeck.core.plugins.Plugin;
-import com.dtolabs.rundeck.core.plugins.configuration.DynamicProperties;
-import com.dtolabs.rundeck.core.plugins.configuration.StringRenderingConstants;
 import com.dtolabs.rundeck.plugins.descriptions.*;
 import com.dtolabs.rundeck.plugins.nodes.IModifiableNodeEntry;
 import com.dtolabs.rundeck.plugins.nodes.NodeEnhancerPlugin;
-import org.rundeck.app.spi.Services;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -109,8 +104,9 @@ public class AttributeNodeEnhancer
     }
 
     private boolean matchesAll(final Map<String, String> attributes) {
+        boolean regexMatch = true;
         Map<String, Predicate<String>> comparisons = new HashMap<>();
-        for (final String s : match.split("\r\n")) {
+        for (final String s : match.split("\r?\n")) {
             Matcher matcher = ComparisonPattern.matcher(s);
             if (matcher.matches()) {
                 String key = matcher.group("key");
@@ -120,8 +116,12 @@ public class AttributeNodeEnhancer
                 comparisons.compute(key, (s1, stringPredicate) ->
                         stringPredicate != null ? stringPredicate.and(newOp) : newOp
                 );
-
+            }else{
+                regexMatch = false;
             }
+        }
+        if(!regexMatch){
+            return false;
         }
         for (String s : comparisons.keySet()) {
             if (!comparisons.get(s).test(attributes.get(s))) {

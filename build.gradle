@@ -17,7 +17,7 @@ scmVersion {
         prefix = 'v'
         versionSeparator = ''
     }
-    ignoreUncommittedChanges = false
+    ignoreUncommittedChanges = true
 }
 
 allprojects {
