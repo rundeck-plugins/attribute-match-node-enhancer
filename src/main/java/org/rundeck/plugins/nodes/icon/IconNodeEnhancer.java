@@ -41,9 +41,14 @@ public class IconNodeEnhancer
             for (int i = 0; i < FAICON_NAMES.length; i++) {
                 FAICON_NAMES[i] = "fa-" + FAICON_NAMES[i];
             }
-            String[] all = new String[GLYPHICON_NAMES.length + FAICON_NAMES.length];
+            String[] FABICON_NAMES = iconProperties.getProperty("fabicon.names").split(",");
+            for (int i = 0; i < FABICON_NAMES.length; i++) {
+                FABICON_NAMES[i] = "fab-" + FABICON_NAMES[i];
+            }
+            String[] all = new String[GLYPHICON_NAMES.length + FAICON_NAMES.length + FABICON_NAMES.length];
             System.arraycopy(GLYPHICON_NAMES, 0, all, 0, GLYPHICON_NAMES.length);
             System.arraycopy(FAICON_NAMES, 0, all, GLYPHICON_NAMES.length, FAICON_NAMES.length);
+            System.arraycopy(FABICON_NAMES, 0, all, GLYPHICON_NAMES.length + FAICON_NAMES.length, FABICON_NAMES.length);
             ALL_NAMES = all;
         } catch (IOException e) {
             throw new RuntimeException("Unable to load resource", e);
