@@ -74,7 +74,7 @@ public class IconNodeEnhancer
                             + "(https://fontawesome"
                             + ".com/icons?d=gallery&m=free) and [Glyphicon](https://getbootstrap.com/docs/3"
                             + ".4/components/)")
-
+    @RenderingOption(key = "valueDisplayType", value = "icon")
     private String iconName;
     /**
      *
@@ -87,6 +87,7 @@ public class IconNodeEnhancer
     @PluginProperty(title = "Badges",
                     description = "Icon badges to add to the Node. Each badge should start with `fa-` or `fab-` or "
                                   + "`glyphicon-`.")
+    @RenderingOption(key = "valueDisplayType", value = "icon")
     private List<String> iconBadges;
 
     @Override
