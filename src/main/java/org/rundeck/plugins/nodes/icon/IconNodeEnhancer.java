@@ -97,7 +97,7 @@ public class IconNodeEnhancer
     {
         HashMap<String, Object> values = new HashMap<>();
         List<String> iconBadges = Arrays.asList(ALL_NAMES);
-        values.put("iconName", iconBadges);
+        values.put("iconBadges", iconBadges);
         return values;
     }
 
