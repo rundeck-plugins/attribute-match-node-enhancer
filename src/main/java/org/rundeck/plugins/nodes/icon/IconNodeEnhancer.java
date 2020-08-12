@@ -20,6 +20,7 @@ import java.util.*;
                    description =
                            "Adds an icon or badges based on an attribute.\n\nIf the attribute exists and optionally "
                            + "matches a certain value, use the selected icon")
+@PluginMetadata(key = "faicon", value = "palette")
 public class IconNodeEnhancer
         implements NodeEnhancerPlugin, DynamicProperties
 {
