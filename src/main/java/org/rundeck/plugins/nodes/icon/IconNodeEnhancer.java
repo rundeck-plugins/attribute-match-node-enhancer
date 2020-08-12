@@ -65,7 +65,8 @@ public class IconNodeEnhancer
     @PluginProperty(title = "Icon Name",
                     description =
                             "Icon name to use, glyphicons start with `glyphicon-` and font-awesome icons start with "
-                            + "`fa-`.\n\nSee [Font-Awesome](https://fontawesome"
+                            + "`fa-`, and font-awesome Brand icons start with `fab-`.\n\nSee [Font-Awesome]"
+                            + "(https://fontawesome"
                             + ".com/icons?d=gallery&m=free) and [Glyphicon](https://getbootstrap.com/docs/3"
                             + ".4/components/)")
 
@@ -79,9 +80,8 @@ public class IconNodeEnhancer
      *
      */
     @PluginProperty(title = "Badges",
-                    description = "Icon badges to add to the Node. Each badge should start with `fa-` or "
-                                  + "`glyphicon-`, *or* the selected Icon Family will be used.")
-
+                    description = "Icon badges to add to the Node. Each badge should start with `fa-` or `fab-` or "
+                                  + "`glyphicon-`.")
     private List<String> iconBadges;
 
     @Override
