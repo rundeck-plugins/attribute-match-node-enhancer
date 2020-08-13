@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
                            "Adds new attributes to a node if a match is found.\n\nIf the attribute exists and "
                            + "optionally "
                            + "matches a certain value, add the custom attributes.")
+@PluginMetadata(key = "faicon", value = "list-alt")
 public class AttributeNodeEnhancer
         implements NodeEnhancerPlugin
 {

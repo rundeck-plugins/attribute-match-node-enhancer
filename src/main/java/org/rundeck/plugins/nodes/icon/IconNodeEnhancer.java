@@ -3,10 +3,7 @@ package org.rundeck.plugins.nodes.icon;
 import com.dtolabs.rundeck.core.common.INodeEntry;
 import com.dtolabs.rundeck.core.plugins.Plugin;
 import com.dtolabs.rundeck.core.plugins.configuration.DynamicProperties;
-import com.dtolabs.rundeck.plugins.descriptions.PluginDescription;
-import com.dtolabs.rundeck.plugins.descriptions.PluginProperty;
-import com.dtolabs.rundeck.plugins.descriptions.SelectLabels;
-import com.dtolabs.rundeck.plugins.descriptions.SelectValues;
+import com.dtolabs.rundeck.plugins.descriptions.*;
 import com.dtolabs.rundeck.plugins.nodes.IModifiableNodeEntry;
 import com.dtolabs.rundeck.plugins.nodes.NodeEnhancerPlugin;
 import org.rundeck.app.spi.Services;
@@ -20,6 +17,7 @@ import java.util.*;
                    description =
                            "Adds an icon or badges based on an attribute.\n\nIf the attribute exists and optionally "
                            + "matches a certain value, use the selected icon")
+@PluginMetadata(key = "faicon", value = "palette")
 public class IconNodeEnhancer
         implements NodeEnhancerPlugin, DynamicProperties
 {
@@ -41,9 +39,14 @@ public class IconNodeEnhancer
             for (int i = 0; i < FAICON_NAMES.length; i++) {
                 FAICON_NAMES[i] = "fa-" + FAICON_NAMES[i];
             }
-            String[] all = new String[GLYPHICON_NAMES.length + FAICON_NAMES.length];
+            String[] FABICON_NAMES = iconProperties.getProperty("fabicon.names").split(",");
+            for (int i = 0; i < FABICON_NAMES.length; i++) {
+                FABICON_NAMES[i] = "fab-" + FABICON_NAMES[i];
+            }
+            String[] all = new String[GLYPHICON_NAMES.length + FAICON_NAMES.length + FABICON_NAMES.length];
             System.arraycopy(GLYPHICON_NAMES, 0, all, 0, GLYPHICON_NAMES.length);
             System.arraycopy(FAICON_NAMES, 0, all, GLYPHICON_NAMES.length, FAICON_NAMES.length);
+            System.arraycopy(FABICON_NAMES, 0, all, GLYPHICON_NAMES.length + FAICON_NAMES.length, FABICON_NAMES.length);
             ALL_NAMES = all;
         } catch (IOException e) {
             throw new RuntimeException("Unable to load resource", e);
@@ -65,10 +68,11 @@ public class IconNodeEnhancer
     @PluginProperty(title = "Icon Name",
                     description =
                             "Icon name to use, glyphicons start with `glyphicon-` and font-awesome icons start with "
-                            + "`fa-`.\n\nSee [Font-Awesome](https://fontawesome"
+                            + "`fa-`, and font-awesome Brand icons start with `fab-`.\n\nSee [Font-Awesome]"
+                            + "(https://fontawesome"
                             + ".com/icons?d=gallery&m=free) and [Glyphicon](https://getbootstrap.com/docs/3"
                             + ".4/components/)")
-
+    @RenderingOption(key = "valueDisplayType", value = "icon")
     private String iconName;
     /**
      *
@@ -79,9 +83,9 @@ public class IconNodeEnhancer
      *
      */
     @PluginProperty(title = "Badges",
-                    description = "Icon badges to add to the Node. Each badge should start with `fa-` or "
-                                  + "`glyphicon-`, *or* the selected Icon Family will be used.")
-
+                    description = "Icon badges to add to the Node. Each badge should start with `fa-` or `fab-` or "
+                                  + "`glyphicon-`.")
+    @RenderingOption(key = "valueDisplayType", value = "icon")
     private List<String> iconBadges;
 
     @Override
@@ -92,7 +96,7 @@ public class IconNodeEnhancer
     {
         HashMap<String, Object> values = new HashMap<>();
         List<String> iconBadges = Arrays.asList(ALL_NAMES);
-        values.put("iconName", iconBadges);
+        values.put("iconBadges", iconBadges);
         return values;
     }
 
