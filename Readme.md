@@ -18,3 +18,5 @@ Set the icon of a node based on existing attribute
 2. Attribute Match Enhancer
 
 Add some attributes when other attributes match a pattern.
+
+test
