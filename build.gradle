@@ -1,7 +1,9 @@
 plugins{
 	//defines scmVersion from git tags
-    id 'pl.allegro.tech.build.axion-release' version '1.18.17'
+    id 'java'
     id 'groovy'
+    id 'idea'
+    alias(libs.plugins.axionRelease)
 }
 apply plugin: 'idea'
 ext.pluginClassNames = 'org.rundeck.plugins.nodes.icon.IconNodeEnhancer,org.rundeck.plugins.nodes.attributes.AttributeNodeEnhancer'
@@ -39,14 +41,11 @@ jar {
     }
 }
 dependencies {
-    // Use the latest
-    // Groovy version for building this library
-    // compile "com.squareup.okhttp3:okhttp:3.6.0"
-    implementation 'org.rundeck:rundeck-core:3.0.14-20190221'
+    implementation(libs.rundeckCore) {
+        exclude group: "com.google.guava"
+    }
 
-
-    // Use the awesome Spock testing and specification framework
-    testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testImplementation libs.bundles.testLibs
 }
 
 // In this section you declare where to find the dependencies of your project
