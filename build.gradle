@@ -1,14 +1,21 @@
-plugins{
-	//defines scmVersion from git tags
+plugins {
     id 'java'
     id 'groovy'
     id 'idea'
     alias(libs.plugins.axionRelease)
+    alias(libs.plugins.nexusPublish)
 }
-apply plugin: 'idea'
+
+group = 'org.rundeck.plugins'
 ext.pluginClassNames = 'org.rundeck.plugins.nodes.icon.IconNodeEnhancer,org.rundeck.plugins.nodes.attributes.AttributeNodeEnhancer'
-ext.pluginName = 'Icon Nodes Enhancer'
-ext.pluginDescription = 'Adds icons to nodes based on attribute values'
+ext.pluginName = 'Attribute Node Enhancer'
+ext.publishDescription = 'Adds icons to nodes based on attribute values'
+ext.publishName = "Attribute Node Enhancer ${project.version}"
+ext.githubSlug = 'rundeck-plugins/attribute-match-node-enhancer'
+ext.developers = [
+        [id: 'gschueler', name: 'Greg Schueler', email: 'greg@rundeck.com']
+]
+
 scmVersion {
     tag {
     	//defines release tags like "v1.2.3"
@@ -29,17 +36,22 @@ jar {
         attributes 'Rundeck-Plugin-Version': '2.0',
                    'Rundeck-Plugin-Archive': 'true',
                    'Rundeck-Plugin-File-Version': project.version,
+                   'Rundeck-Plugin-License': 'Apache 2.0',
                    'Rundeck-Plugin-Author': 'Greg Schueler',
                    'Rundeck-Plugin-URL': 'http://rundeck.com',
                    'Rundeck-Plugin-Date': new Date().format("yyyy-MM-dd'T'HH:mm:ssX"),
                    'Rundeck-Plugin-Classnames': pluginClassNames,
                    'Rundeck-Plugin-Name': pluginName,
-                   'Rundeck-Plugin-Description': pluginDescription,
+                   'Rundeck-Plugin-Description': publishDescription,
                    'Rundeck-Plugin-Rundeck-Compatibility-Version': '3.0.14+'
 
 
     }
 }
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation(libs.rundeckCore) {
         exclude group: "com.google.guava"
@@ -53,3 +65,4 @@ repositories {
     mavenCentral()
 }
 
+apply from: "${rootDir}/gradle/publishing.gradle"
