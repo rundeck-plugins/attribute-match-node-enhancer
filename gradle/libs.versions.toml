@@ -1,0 +1,16 @@
+[versions]
+axionRelease = "1.18.17"
+groovy = "3.0.23"
+rundeckCore = "5.8.0-20241205"
+spock = "2.3-groovy-3.0"
+
+[libraries]
+rundeckCore = { group = "org.rundeck", name = "rundeck-core", version.ref = "rundeckCore" }
+groovyAll = { group = "org.codehaus.groovy", name = "groovy-all", version.ref = "groovy" }
+spockCore = { group = "org.spockframework", name = "spock-core", version.ref = "spock" }
+
+[bundles]
+testLibs = ["groovyAll", "spockCore"]
+
+[plugins]
+axionRelease = { id = "pl.allegro.tech.build.axion-release", version.ref = "axionRelease" }
