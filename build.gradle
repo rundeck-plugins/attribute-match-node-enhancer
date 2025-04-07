@@ -1,6 +1,6 @@
 plugins{
 	//defines scmVersion from git tags
-    id 'pl.allegro.tech.build.axion-release' version '1.9.3'
+    id 'pl.allegro.tech.build.axion-release' version '1.18.17'
     id 'groovy'
 }
 apply plugin: 'idea'
