@@ -1,11 +1,7 @@
 plugins{
 	//defines scmVersion from git tags
     id 'pl.allegro.tech.build.axion-release' version '1.9.3'
-
     id 'groovy'
-    id 'maven'
-
-    id 'com.gradle.build-scan' version '1.13'
 }
 apply plugin: 'idea'
 ext.pluginClassNames = 'org.rundeck.plugins.nodes.icon.IconNodeEnhancer,org.rundeck.plugins.nodes.attributes.AttributeNodeEnhancer'
@@ -43,30 +39,18 @@ jar {
     }
 }
 dependencies {
-    // Use the latest Groovy version for building this library
+    // Use the latest
+    // Groovy version for building this library
     // compile "com.squareup.okhttp3:okhttp:3.6.0"
-    compile 'org.rundeck:rundeck-core:3.0.14-20190221'
+    implementation 'org.rundeck:rundeck-core:3.0.14-20190221'
 
 
     // Use the awesome Spock testing and specification framework
-    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
 
 // In this section you declare where to find the dependencies of your project
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    mavenLocal()
-    jcenter()
+    mavenCentral()
 }
 
-
-buildScan {
-    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-    termsOfServiceAgree = 'yes'
-}
-
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10'
-}
