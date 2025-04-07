@@ -26,7 +26,7 @@ jar {
     manifest {
         attributes 'Rundeck-Plugin-Version': '2.0',
                    'Rundeck-Plugin-Archive': 'true',
-                   'Rundeck-Plugin-File-Version': version,
+                   'Rundeck-Plugin-File-Version': project.version,
                    'Rundeck-Plugin-Author': 'Greg Schueler',
                    'Rundeck-Plugin-URL': 'http://rundeck.com',
                    'Rundeck-Plugin-Date': new Date().format("yyyy-MM-dd'T'HH:mm:ssX"),
