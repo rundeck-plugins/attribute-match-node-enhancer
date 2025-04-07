@@ -1,6 +1,6 @@
 [versions]
 axionRelease = "1.18.17"
-groovy = "3.0.23"
+groovy = "3.0.24"
 rundeckCore = "5.10.0-20250312"
 nexusPublish = "2.0.0"
 spock = "2.3-groovy-3.0"
