@@ -81,7 +81,7 @@ public class IconNodeEnhancer
                             + ".com/icons?d=gallery&m=free) and [Glyphicon](https://getbootstrap.com/docs/3"
                             + ".4/components/)")
     @RenderingOption(key = "valueDisplayType", value = "icon")
-    @SelectValues(freeSelect = true, values = {})
+    @SelectValues(freeSelect = true, values = {/* values set in buildWith method */})
     private String iconName;
     /**
      *
