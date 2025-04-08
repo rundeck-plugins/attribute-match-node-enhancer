@@ -1,12 +1,10 @@
 package org.rundeck.plugins.nodes.icon;
 
-import com.dtolabs.rundeck.core.common.INodeEntry;
 import com.dtolabs.rundeck.core.plugins.Plugin;
-import com.dtolabs.rundeck.core.plugins.configuration.DynamicProperties;
 import com.dtolabs.rundeck.plugins.descriptions.*;
 import com.dtolabs.rundeck.plugins.nodes.IModifiableNodeEntry;
 import com.dtolabs.rundeck.plugins.nodes.NodeEnhancerPlugin;
-import org.rundeck.app.spi.Services;
+import com.dtolabs.rundeck.plugins.util.DescriptionBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +17,7 @@ import java.util.*;
                            + "matches a certain value, use the selected icon")
 @PluginMetadata(key = "faicon", value = "palette")
 public class IconNodeEnhancer
-        implements NodeEnhancerPlugin, DynamicProperties
+        implements NodeEnhancerPlugin, DescriptionBuilder.Collaborator
 {
 
     private static final String[] ALL_NAMES;
@@ -53,6 +51,16 @@ public class IconNodeEnhancer
         }
     }
 
+    @Override
+    public void buildWith(DescriptionBuilder descriptionBuilder) {
+        //modify the property descriptions to add the select values, which cannot be added via Java annotations
+        descriptionBuilder.property(
+                descriptionBuilder.property("iconName").values(ALL_NAMES)
+        ).property(
+                descriptionBuilder.property("iconBadges").values(ALL_NAMES)
+        );
+    }
+
     public static final String PROVIDER = "icon";
 
     @PluginProperty(title = "Attribute Name", description = "Attribute name to look for", required = true)
@@ -73,6 +81,7 @@ public class IconNodeEnhancer
                             + ".com/icons?d=gallery&m=free) and [Glyphicon](https://getbootstrap.com/docs/3"
                             + ".4/components/)")
     @RenderingOption(key = "valueDisplayType", value = "icon")
+    @SelectValues(freeSelect = true, values = {/* values set in buildWith method */})
     private String iconName;
     /**
      *
@@ -87,18 +96,6 @@ public class IconNodeEnhancer
                                   + "`glyphicon-`.")
     @RenderingOption(key = "valueDisplayType", value = "icon")
     private List<String> iconBadges;
-
-    @Override
-    public Map<String, Object> dynamicProperties(
-            final Map<String, Object> projectAndFrameworkValues,
-            final Services services
-    )
-    {
-        HashMap<String, Object> values = new HashMap<>();
-        List<String> iconBadges = Arrays.asList(ALL_NAMES);
-        values.put("iconBadges", iconBadges);
-        return values;
-    }
 
     @Override
     public void updateNode(
