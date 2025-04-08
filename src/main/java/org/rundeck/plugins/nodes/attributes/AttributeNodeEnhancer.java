@@ -81,10 +81,10 @@ public class AttributeNodeEnhancer
         addAllTags(node.getTags(), node.getAttributes(), addTags, enableSubstitution);
     }
 
-    public static void addAllTags(final Set<String> tags, Map<String, String> attributes, String addTags1, boolean enableSubstitution) {
+    public static void addAllTags(final Set<String> tags, Map<String, String> attributes, String newTags, boolean enableSubstitution) {
         Set<String> loadedTags = new HashSet<>();
-        if (addTags1 != null && !addTags1.trim().isEmpty()) {
-            String[] list = addTags1.split("\\s*,\\s*");
+        if (newTags != null && !newTags.trim().isEmpty()) {
+            String[] list = newTags.split("\\s*,\\s*");
             for (String tag : list) {
                 if (!tag.trim().isEmpty()) {
                     //substitute any existing attribute values
@@ -116,7 +116,7 @@ public class AttributeNodeEnhancer
                     );
                 }
             } catch (IOException e) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Unable to parse properties", e);
             }
         }
 
