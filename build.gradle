@@ -65,4 +65,12 @@ repositories {
     mavenCentral()
 }
 
+nexusPublishing {
+    packageGroup = 'org.rundeck.plugins'
+    repositories {
+        sonatype()
+    }
+}
+
+
 apply from: "${rootDir}/gradle/publishing.gradle"
