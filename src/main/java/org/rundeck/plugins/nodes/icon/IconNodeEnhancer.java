@@ -8,7 +8,8 @@ import com.dtolabs.rundeck.plugins.util.DescriptionBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.List;
+import java.util.Properties;
 
 @Plugin(service = "NodeEnhancer", name = IconNodeEnhancer.PROVIDER)
 @PluginDescription(title = "Icon",
@@ -110,8 +111,12 @@ public class IconNodeEnhancer
             && !attributeValue.equals(node.getAttributes().get(attributeName))) {
             return;
         }
-        node.addAttribute("ui:icon:name", iconName);
-        if (iconColor != null && !"".equals(iconColor)) {
+        if (null != iconName && !iconName.isBlank()) {
+            if (iconName.startsWith("glyphicon-") || iconName.startsWith("fa-") || iconName.startsWith("fab-")) {
+                node.addAttribute("ui:icon:name", iconName);
+            }
+        }
+        if (iconColor != null && !iconColor.isBlank()) {
             node.addAttribute("ui:icon:color", iconColor);
         }
         if (iconBadges != null && iconBadges.size() > 0) {
@@ -124,7 +129,9 @@ public class IconNodeEnhancer
                     sb.append(iconBadge);
                 }
             }
-            node.addAttribute("ui:badges", sb.toString());
+            if (sb.length() > 0) {
+                node.addAttribute("ui:badges", sb.toString());
+            }
         }
     }
 
