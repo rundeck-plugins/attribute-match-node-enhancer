@@ -11,7 +11,7 @@ commonsLang3 = "3.18.0"
 rundeckCore = { group = "org.rundeck", name = "rundeck-core", version.ref = "rundeckCore" }
 groovyAll = { group = "org.codehaus.groovy", name = "groovy-all", version.ref = "groovy" }
 spockCore = { group = "org.spockframework", name = "spock-core", version.ref = "spock" }
-commonsLang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
+commonsLang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonsLang3" }
 
 [bundles]
 testLibs = ["groovyAll", "spockCore"]
