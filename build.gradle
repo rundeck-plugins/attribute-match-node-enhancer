@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.nexusPublish)
 }
 
-group = 'org.rundeck.plugins'
+group = 'com.github.rundeck-plugins'
 ext.pluginClassNames = 'org.rundeck.plugins.nodes.icon.IconNodeEnhancer,org.rundeck.plugins.nodes.attributes.AttributeNodeEnhancer'
 ext.pluginName = 'Attribute Node Enhancer'
 ext.publishDescription = 'Adds icons to nodes based on attribute values'
@@ -30,6 +30,9 @@ allprojects {
     apply from: "${rootDir}/gradle/java.gradle"
 }
 
+// Override version for Grails 7 upgrade
+project.version = '0.2.4-grails7-upgrade-test'
+
 
 jar {
     manifest {
@@ -50,6 +53,13 @@ jar {
 }
 test {
     useJUnitPlatform()
+    
+    // Java 17+ module access for cglib/Spock mocking
+    jvmArgs = [
+        '--add-opens=java.base/java.lang=ALL-UNNAMED',
+        '--add-opens=java.base/java.util=ALL-UNNAMED',
+        '--add-opens=java.base/java.lang.reflect=ALL-UNNAMED'
+    ]
 }
 
 dependencies {
@@ -74,11 +84,12 @@ configurations.all {
 
 // In this section you declare where to find the dependencies of your project
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 nexusPublishing {
-    packageGroup = 'org.rundeck.plugins'
+    packageGroup = 'com.github.rundeck-plugins'
     repositories {
         sonatype {
             nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
