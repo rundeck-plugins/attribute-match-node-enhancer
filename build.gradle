@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.nexusPublish)
 }
 
-group = 'com.github.rundeck-plugins'
+group = 'com.rundeck.plugins'
 ext.pluginClassNames = 'org.rundeck.plugins.nodes.icon.IconNodeEnhancer,org.rundeck.plugins.nodes.attributes.AttributeNodeEnhancer'
 ext.pluginName = 'Attribute Node Enhancer'
 ext.publishDescription = 'Adds icons to nodes based on attribute values'
@@ -18,20 +18,18 @@ ext.developers = [
 
 scmVersion {
     tag {
-    	//defines release tags like "v1.2.3"
-        prefix = 'v'
+        prefix = ''           // NO "v" prefix - see PLUGIN_TAGGING_ARCHITECTURE.md
         versionSeparator = ''
     }
     ignoreUncommittedChanges = true
+    branchVersionCreator = ['main': 'simple', 'master': 'simple']  // Don't append branch name
+    versionCreator 'simple'  // Use simple version creator (just tag name)
 }
 
 allprojects {
-    project.version = scmVersion.version
+    project.version = scmVersion.version  // Dynamic version from git tag
     apply from: "${rootDir}/gradle/java.gradle"
 }
-
-// Override version for Grails 7 upgrade
-project.version = '0.2.7-grails7-upgrade-test'
 
 
 jar {
@@ -96,7 +94,7 @@ repositories {
 }
 
 nexusPublishing {
-    packageGroup = 'com.github.rundeck-plugins'
+    packageGroup = 'com.rundeck.plugins'
     repositories {
         sonatype {
             nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
