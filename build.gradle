@@ -61,10 +61,16 @@ test {
 }
 
 dependencies {
-    implementation(libs.rundeckCore) {
+    // compileOnly: Rundeck provides rundeck-core at runtime; must not appear as a SNAPSHOT
+    // dependency in the published POM or Maven Central rejects the release.
+    compileOnly(libs.rundeckCore) {
         exclude group: "com.google.guava"
     }
-    
+    // Tests compile against core APIs; testImplementation is not published in the main POM.
+    testImplementation(libs.rundeckCore) {
+        exclude group: "com.google.guava"
+    }
+
     // Add secure commons-lang3 to provide alternative to vulnerable commons-lang 2.6
     implementation(libs.commonsLang3)
 
