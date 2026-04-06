@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.nexusPublish)
 }
 
-group = 'com.rundeck.plugins'
+group = 'org.rundeck.plugins'
 ext.pluginClassNames = 'org.rundeck.plugins.nodes.icon.IconNodeEnhancer,org.rundeck.plugins.nodes.attributes.AttributeNodeEnhancer'
 ext.pluginName = 'Attribute Node Enhancer'
 ext.publishDescription = 'Adds icons to nodes based on attribute values'
@@ -94,7 +94,7 @@ repositories {
 }
 
 nexusPublishing {
-    packageGroup = 'com.rundeck.plugins'
+    packageGroup = 'org.rundeck.plugins'
     repositories {
         sonatype {
             nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
