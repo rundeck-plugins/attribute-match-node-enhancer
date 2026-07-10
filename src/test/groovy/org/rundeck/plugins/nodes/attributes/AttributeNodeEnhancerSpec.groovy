@@ -74,6 +74,34 @@ class AttributeNodeEnhancerSpec extends Specification{
         false   | 'a-${attb1}-b-${attb2}'
     }
 
+    def "test attribute value substitution with special characters"() {
+
+        given:
+        def plugin = new AttributeNodeEnhancer()
+        plugin.match = "attb1~~"
+        plugin.add = 'result=x-${attb1}-y'
+        plugin.enableSubstitution = true
+
+
+        def node = new ModifiableNodeEntry("test1")
+        node.attributes = [attb1: source]
+
+        def project = "TestProject"
+        when:
+
+        plugin.updateNode(project, node)
+
+        then:
+        node.attributes.result == result
+
+        where:
+        source            | result
+        'C:\\path\\to'    | 'x-C:\\path\\to-y'
+        'a$b'             | 'x-a$b-y'
+        'p@$$w0rd'        | 'x-p@$$w0rd-y'
+        '${notexpanded}'  | 'x-${notexpanded}-y'
+    }
+
     def "test tag substitution"() {
 
         given:

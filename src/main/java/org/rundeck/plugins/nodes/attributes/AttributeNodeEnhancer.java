@@ -136,7 +136,7 @@ public class AttributeNodeEnhancer
         while (matcher.find()) {
             String name = matcher.group("name");
             String replacement = attributes.get(name);
-            matcher.appendReplacement(sb, Objects.requireNonNullElse(replacement, ""));
+            matcher.appendReplacement(sb, Matcher.quoteReplacement(Objects.requireNonNullElse(replacement, "")));
         }
         matcher.appendTail(sb);
         return sb.toString();
